@@ -6,12 +6,14 @@ const BrowserWindow = electron.BrowserWindow;
 const path = require("path");
 const url = require("url");
 
+require('electron-reload')(__dirname);
+
 let win;
 
 function createWindow() {
     win = new BrowserWindow();
     win.loadURL(url.format({
-        pathname: path.join(__dirname, 'index.html'),
+        pathname: path.join(__dirname, 'build/html/index.html'),
         protocol: 'file',
         slashes: true
     }));
@@ -22,7 +24,11 @@ function createWindow() {
     });
 }
 
-app.on('ready', createWindow());
+
+app.on('ready', () => {
+
+    createWindow();
+});
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit();
